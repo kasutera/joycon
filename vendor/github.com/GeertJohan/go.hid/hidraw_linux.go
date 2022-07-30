@@ -305,6 +305,7 @@ func (dev *Device) ReadTimeout(p []byte, timeoutMS int) (n int, err error) {
 
 	deadline := time.Now().Add(time.Duration(timeoutMS) * time.Millisecond)
 	for time.Now().Before(deadline) {
+		time.Sleep(time.Millisecond * 1)
 		n, err = unix.Read(dev.fd, p)
 		if err == unix.EINTR {
 			continue
